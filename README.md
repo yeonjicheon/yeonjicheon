@@ -1,16 +1,289 @@
-## Hi there 👋
-
 <!--
-**yeonjicheon/yeonjicheon** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Created using JS Bin
+http://jsbin.com
 
-Here are some ideas to get you started:
+Copyright (c) 2025 by anonymous (http://jsbin.com/towulufeya/1/edit)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+Released under the MIT license: http://jsbin.mit-license.org
 -->
+<meta name="robots" content="noindex">
+<style id="jsbin-css">
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif; /* 한국어 폰트 적용 */
+    overflow: hidden; /* 스크롤바 제거 */
+    background-color: black;
+    color: white;
+}
+
+/* 폰트 임포트 (Noto Sans KR, Helvetica) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap');
+
+/* --- 상단 타이틀 및 설명 고정 --- */
+#project-title,
+#project-description {
+    position: fixed;
+    top: 1.3vh; /* 상단 여백 설정 */
+    z-index: 1000; /* 영상 및 버튼 위에 표시 */
+    font-weight: bold;
+    color: white;
+}
+
+/* 왼쪽 상단 타이틀 */
+#project-title {
+    left: 2%;
+    font-size: 1.5em;
+    font-family: 'Helvetica', sans-serif; /* Helvetica 폰트 적용 */
+}
+
+/* 오른쪽 상단 설명 */
+#project-description {
+    right: 2%;
+    font-size: 0.9em;
+    line-height: 1.5;
+    text-align: right;
+    font-family: 'Noto Sans KR', sans-serif; /* Noto Sans KR 폰트 적용 */
+}
+
+/* --- Vimeo 플레이어 컨테이너 (상단 여백 외 좌우/하단 여백 없음) --- */
+#vimeo-container {
+    position: absolute;
+    top: 7vh; /* 상단 텍스트를 위한 공간 확보 */
+    left: 0;
+    width: 100%;
+    /* 화면 높이에서 상단 7vh를 제외한 나머지 영역을 모두 차지 */
+    height: calc(100vh - 7vh); 
+    overflow: hidden;
+    z-index: 10;
+}
+
+/* iframe을 컨테이너에 꽉 채우기 */
+#vimeo-container iframe {
+    width: 1920;
+    height: 1080;
+    display: yellow;
+}
+
+/* --- 버튼 컨테이너 (중앙 하단 고정) --- */
+#controls {
+    position: fixed;
+    bottom: 30px; /* 화면 하단에서 30px 띄우기 */
+    left: 50%;
+    transform: translateX(-50%); /* X축 중앙 정렬 */
+    display: flex;
+    gap: 30px; /* 버튼 사이 간격 */
+    z-index: 20; /* 영상 및 텍스트 위에 위치 */
+}
+
+/* --- 버튼 스타일 --- */
+button {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    
+    width: 70px; /* 원형 크기 */
+    height: 70px;
+    border-radius: 50%; /* 원형 */
+    padding: 0; /* 패딩 제거 */
+    
+    margin: 0;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 1.1;
+    cursor: pointer;
+    
+    /* 버튼 기본 스타일: 노란색 배경 */
+    background: yellow;
+    color: black;
+    border: 1.5px solid black;
+
+    font-family: 'Noto Sans KR', sans-serif;
+  font-weight: bold;
+
+    transition: all 0.1s ease; /* 부드러운 전환 효과 */
+}
+
+/* 마우스 오버 시 효과 */
+button:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.0); /* 노란색 빛 효과 */
+    transform: scale(1.05); /* 약간 커짐 */
+}
+
+/* 버튼 클릭/활성화 시 색상 변경 효과 (요청하신 노란 버튼 색상 변경) */
+button:active {
+    background: white; /* 누르는 순간 배경색이 초록 계열로 변경 */
+    color: black; /* 글자색이 주황 계열로 변경 */
+    border-color: black; /* 테두리 색상도 주황 계열로 변경 */
+    transform: scale(0.98); /* 살짝 눌리는 효과 */
+}
+
+/* 미디어 쿼리: 모바일 환경 대응 */
+@media (max-width: 600px) {
+    #project-title,
+    #project-description {
+        font-size: 0.8em;
+        top: 1vh;
+        left: 5%;
+        right: 5%;
+    }
+
+    #project-description {
+        text-align: left;
+        top: 4vh; /* 모바일에서는 타이틀 아래로 내리기 */
+    }
+
+    #vimeo-container {
+        top: 8vh;
+        height: calc(100vh - 8vh);
+    }
+    
+    #controls {
+        gap: 1px;
+        bottom: 15px;
+    }
+
+    button {
+        width: 55px;
+        height: 55px;
+        font-size: 5em;
+    }
+}
+
+</style>
+<body>
+
+    <!-- 왼쪽 상단 타이틀 (Helvetica) -->
+    <div id="project-title">
+        06arc
+    </div>
+
+    <!-- 오른쪽 상단 설명 (Noto Sans KR) -->
+    <div id="project-description">
+        06번 버스를 타고 학교까지 움직이는 일상의 곡선!<br>
+       범계역에서 계원예술대학교까지의 사적인 지도
+    </div>
+
+    <!------- Vimeo 플레이어 컨테이너 -------->
+    <div id="vimeo-container">
+        <iframe
+            id="vimeo-player"
+            src="https://player.vimeo.com/video/1133250901?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&controls=0&background=1"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            allowfullscreen
+            title="1104. 느리게mp4"
+        ></iframe>
+    </div>
+
+    <!-- 원형 버튼 (중앙 하단) -->
+    <div id="controls">
+        <!-- 출발: 1초로 이동 후 재생 -->
+        <button onclick="seekTo(1)">출발</button>
+        <!-- 북마크 이동: 순서대로 지정된 시간으로 이동 및 ID 연결 -->
+        <button onclick="moveToNextBookmark()" id="bookmarkBtn">멈춤</button>
+        <!-- 도착: 33초로 이동 후 재생 -->
+        <button onclick="seekTo(33)">도착</button>
+    </div>
+
+
+    <!-- Vimeo Player API 로드 및 JavaScript 코드 시작점 -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <!-- JavaScript 코드는 아래 파일에 연결됩니다. -->
+<script id="jsbin-javascript">
+// Global variables to store the Vimeo player instance and control states
+let player = null; 
+let isPlaying = true;
+let bookmarkBtn = null; // '북마크 이동' 버튼 요소를 저장할 변수
+
+// 북마크 시간 (초 단위). 1분 = 60초, 1분 17초 = 77초, 1분 22초 = 82초
+const BOOKMARKS = [
+    9, 12, 17, 23, 39, 50, 54, 60, 77, 82
+];
+let currentBookmarkIndex = 0;
+
+// window.onload를 사용하여 모든 HTML 요소가 로드된 후 Vimeo Player를 초기화합니다.
+window.onload = function() {
+    try {
+        const iframe = document.getElementById('vimeo-player');
+        if (!iframe) {
+            console.error("Error: Vimeo iframe with ID 'vimeo-player' not found.");
+            return;
+        }
+
+        // Vimeo Player API 초기화
+        player = new Vimeo.Player(iframe); 
+        console.log("Vimeo Player initialized successfully. Ready for commands.");
+
+        // '북마크' 버튼 요소 가져오기
+        bookmarkBtn = document.getElementById('bookmarkBtn'); 
+
+        // 초기 재생 상태 확인 및 텍스트 설정 (버튼 텍스트는 '멈춤'으로 고정)
+        player.getPaused().then(function(paused) {
+             isPlaying = !paused;
+        }).catch(error => {
+            console.warn("Could not determine initial playback state:", error);
+        });
+        
+    } catch (error) {
+        console.error("Vimeo Player initialization failed. Check if vimeo player.js is loaded.", error);
+    }
+};
+
+/**
+ * 특정 시간으로 이동 후 재생을 시작합니다.
+ * [출발], [도착] 버튼에서 사용됩니다.
+ * @param {number} seconds - 이동할 시간(초)
+ */
+function seekTo(seconds) {
+    if (!player) {
+        console.warn("Player not yet initialized.");
+        return;
+    }
+
+    player.setCurrentTime(seconds).catch(error => {
+        console.error("Seeking failed:", error);
+    });
+    
+    // 이동 후 바로 재생 상태로 변경
+    player.play();
+    isPlaying = true;
+
+    // 북마크 인덱스를 초기화합니다. (새로운 시퀀스를 시작할 수 있도록)
+    currentBookmarkIndex = 0;
+}
+
+/**
+ * 미리 정의된 북마크 시간으로 순서대로 이동합니다.
+ * [멈춤] 버튼(북마크 이동 기능)에서 사용됩니다.
+ */
+function moveToNextBookmark() {
+    if (!player) {
+        console.warn("Player not yet initialized.");
+        return;
+    }
+
+    // 다음 북마크 시간 가져오기
+    const nextTime = BOOKMARKS[currentBookmarkIndex];
+
+    if (nextTime !== undefined) {
+        // 해당 시간으로 이동
+        player.setCurrentTime(nextTime).catch(error => {
+            console.error(`Seeking to bookmark ${nextTime} failed:`, error);
+        });
+        
+        // 이동 후 바로 재생 상태로 변경
+        player.play();
+        isPlaying = true;
+
+        // 인덱스를 다음 북마크로 업데이트 (마지막이면 처음으로 순환)
+        currentBookmarkIndex = (currentBookmarkIndex + 1) % BOOKMARKS.length;
+        
+    } else {
+        console.warn("No bookmarks defined or index out of bounds.");
+    }
+}
+
+</script>
+</body>
